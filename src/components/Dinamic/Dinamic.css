@@ -1,0 +1,59 @@
+.foundText{
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    border-radius: 15px;
+    background-color: #59267c;
+    color: white;
+    padding:5px;
+    margin:5px 10px 0 10px
+}
+
+.PokemonInfo{
+    border-style: solid;
+      border-width: 2px;
+      border-color: #59267c;
+      border-radius: 15px;
+      margin: auto;
+      margin-top: 5px;
+      width: 250px;
+      height: auto;
+      background-color: white
+  
+  }
+
+  .FoundPokemons  {
+    display:inline-block;
+    color:white;
+    margin: 5px;
+    text-align: center;
+  }
+  .FoundPokemons h5 {
+   border-style: solid;
+   border-color: antiquewhite;
+   border-width: 1px;
+   padding: 5px;
+   border-radius: 5px;
+   background-color: #59267c
+  }
+  .pokNameImg{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #59267c;
+    border-radius: 10px;
+    background-color: white;
+    color: black
+  }
+
+  .sortButton{
+      border-width: 1px;
+      border-style: solid;
+      border-color: white;
+      border-radius: 10px;
+      background-color: #59267c;
+      color: white;
+      margin-top: 5px;
+      padding: 5px;
+      outline: none;
+      cursor: pointer;
+  }

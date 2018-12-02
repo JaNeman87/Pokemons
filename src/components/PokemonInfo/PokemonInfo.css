@@ -1,0 +1,23 @@
+.PokemonInfo{
+    border-style: solid;
+      border-width: 2px;
+      border-color: #59267c;
+      border-radius: 15px;
+      margin: auto;
+      margin-top: 50px;
+      width: 250px;
+      height: auto;
+      background-color: white
+  
+  }
+  
+  .pokInfoP{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #59267c;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+  }
