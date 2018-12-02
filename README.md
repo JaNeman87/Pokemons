@@ -1,14 +1,11 @@
 ## Pokemon Search App
 
-In the project directory, you can run:
+As the name suggest, user can search pokemons by name or color.
 
-### `npm start`
+### Searching by name
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Just enter the name of pokemon into the search bar, hit find and if pokemon with that name exists, you will be presented 
+with additional info of that particular pokemon.
 
 ### `npm test`
 
