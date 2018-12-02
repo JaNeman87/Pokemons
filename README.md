@@ -13,6 +13,6 @@ Enter any color that you want, and if pokemons in that color exists, you will be
 
 ## Link 
 
-[Pokemon Search App](https://pokemonv155s.firebaseapp.com/).
+[Pokemon Search App](https://pokemonv155s.firebaseapp.com/)
 
 
