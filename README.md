@@ -11,8 +11,8 @@ with additional info of that particular pokemon.
 
 Enter any color that you want, and if pokemons in that color exists, you will be presented with the list of pokemons with name and image. You can choose and sort the list alphabetically if you want.
 
-## Learn More
+## Link 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Pokemon Search App](https://pokemonv155s.firebaseapp.com/).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
