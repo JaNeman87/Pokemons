@@ -1,12 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+.findOutandSort{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around
+}
+
 .foundText{
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
-    border-radius: 15px;
-    background-color: #59267c;
-    color: white;
-    padding:5px;
-    margin:5px 10px 0 10px
+    animation:blinkingText 1.3s infinite;
+}
+@keyframes blinkingText{
+  0%{		color: rgb(45, 245, 6);	}
+  49%{	color: rgb(45, 245, 6);	}
+  50%{	color: transparent;	}
+  99%{	color:rgb(45, 245, 6);	}
+  100%{	color: rgb(45, 245, 6);	}
 }
 
 .PokemonInfo{
@@ -22,6 +29,38 @@
   
   }
 
+  .warning{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    height: calc(100vh - 120px);
+  }
+
+  .NoPokemon{
+    border-style: solid;
+      border-width: 2px;
+      border-color:rgb(45, 245, 6);
+      border-radius: 15px;
+      margin: 5px 30px 0 30px;
+      /* margin-top: 5px; */
+      width: auto;
+      height: auto;
+      background-color: #59267c;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+  }
+ 
+
+
+  .NoPokemonTxt{
+      color: white;
+      font-size: 50px;
+      font-family: 'Gamja Flower', cursive;
+  }
+
   .FoundPokemons  {
     display:inline-block;
     color:white;
@@ -30,30 +69,56 @@
   }
   .FoundPokemons h5 {
    border-style: solid;
-   border-color: antiquewhite;
+   border-color: rgb(45, 245, 6);
    border-width: 1px;
    padding: 5px;
    border-radius: 5px;
-   background-color: #59267c
+   background-color: #59267c;
+   font-family: 'Gamja Flower', cursive;
+   font-size: 20px;
+   margin: 0
   }
   .pokNameImg{
     border-style: solid;
     border-width: 1px;
-    border-color: #59267c;
+    border-color: rgb(45, 245, 6);
     border-radius: 10px;
-    background-color: white;
-    color: black
+    background-color: #59267c;
+    color: black;
+    width: 132px;
   }
 
   .sortButton{
       border-width: 1px;
       border-style: solid;
-      border-color: white;
+      border-color: rgb(45, 245, 6);;
       border-radius: 10px;
       background-color: #59267c;
-      color: white;
+      color: rgb(45, 245, 6);;
       margin-top: 5px;
-      padding: 5px;
+      padding: 10px;
       outline: none;
       cursor: pointer;
+      animation:blinkingButton 0.8s infinite;
+  }
+
+  @keyframes blinkingButton{
+    0%{		background-color: #59267c;	}
+    49%{	background-color: #59267c;	}
+    50%{	background-color: transparent;	}
+    99%{	background-color:#59267c;	}
+    100%{	background-color: #59267c;	}
+  }
+
+  
+  .pokByColText{
+    font-family: 'Gamja Flower', cursive;
+    font-size: 25px;
+    color: white
+  }
+  .recSearches{
+    color: white;
+    font-family: 'Gamja Flower', cursive;
+    font-size: 35px;
+    margin: 0
   }

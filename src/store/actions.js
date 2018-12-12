@@ -10,6 +10,8 @@ export const IF_THERE_IS_A_COLOR = "IF_THERE_IS_A_COLOR";
 export const IF_THERE_IS_NO_COLOR = "IF_THERE_IS_NO_COLOR";
 export const SORT = "SORT";
 export const UNSORT = "UNSORT";
+export const LOADING_OR_NO = "LOADING_OR_NO";
+export const NO_POKEMON = "NO_POKEMON";
 
 export const typedValue = value => {
   return {
@@ -96,5 +98,18 @@ export const sortButton = () => {
 export const unsort = () => {
   return {
     type: UNSORT
+  };
+};
+
+export const loadingOrNo = val => {
+  return {
+    type: LOADING_OR_NO,
+    val: val
+  };
+};
+
+export const noPokemon = () => {
+  return {
+    type: NO_POKEMON
   };
 };

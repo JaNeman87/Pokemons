@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+
 .PokemonInfo{
     border-style: solid;
       border-width: 2px;
-      border-color: #59267c;
+      border-color: rgb(45, 245, 6);
       border-radius: 15px;
       margin: auto;
       margin-top: 50px;
       width: 250px;
       height: auto;
-      background-color: white
+      background-color: #59267c
   
   }
   
@@ -15,9 +17,19 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
-    border-color: #59267c;
+    border-color: rgb(45, 245, 6);
     width: auto;
     margin-left: 10px;
     margin-right: 10px;
     padding: 10px;
+    font-family: 'Gamja Flower', cursive;
+    color:white;
+    font-size: 20px
+  }
+
+  .imgDims{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 96px;
   }

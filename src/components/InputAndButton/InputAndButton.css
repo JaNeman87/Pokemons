@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+
 .App {
     text-align: center;
     /* margin: auto; */
@@ -10,18 +12,32 @@
     height: 35px;
     border-radius: 10px;
     outline: none;
-    border-color: #59267c
+    border-color: rgb(45, 245, 6);
+    background-color: #59267c;
+    color:white;
+    font-family: 'Gamja Flower', cursive;
+    font-size: 25px
   }
   
   .Button{
-    height: 40px;
+    height: 41px;
     width: 75px;
     margin-left: 5px;
-    background-color: #59267c;
+    background-color: rgb(45, 245, 6);
     outline: none;
     border-radius: 10px;
     border-color:white ;
     color: white;
     cursor: pointer
   }
+
+  .Button:hover{
+    background-color: #59267c;
+    border-color: rgb(45, 245, 6);
+  }
   
+  .headText{
+    color: white;
+    font-family: 'Gamja Flower', cursive;
+    margin:0
+  }

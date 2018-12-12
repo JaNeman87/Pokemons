@@ -13,12 +13,20 @@ import {
   ifThereIsNoName,
   ifThereIsAColor,
   ifThereIsNoColor,
-  unsort
+  unsort,
+  loadingOrNo,
+  noPokemon
 } from "../../store/actions";
 
 class InputAndButton extends Component {
   state = {
     pokemon: []
+  };
+
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      this.buttonClickedHandler();
+    }
   };
 
   onChangeHandler = event => {
@@ -27,27 +35,6 @@ class InputAndButton extends Component {
   };
 
   // Fetching the images and names of pokemons by color
-  pokemonHandler = () => {
-    this.props.pokemonColor.forEach(pok => {
-      axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${pok}/`)
-        .then(res => {
-          this.setState(prevState => ({
-            pokemon: [
-              ...prevState.pokemon,
-              {
-                name: res.data.name,
-                img: res.data.sprites.front_shiny
-              }
-            ]
-          }));
-          this.props.newPokemon(this.state.pokemon);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    });
-  };
 
   buttonClickedHandler = () => {
     const pokNames = this.props.pokemonNames;
@@ -57,7 +44,6 @@ class InputAndButton extends Component {
     if (searchVal === "") {
       return;
     }
-
     // Checking if pokemon names array contains the input value
     let isThereName = pokNames.indexOf(searchVal);
 
@@ -100,7 +86,7 @@ class InputAndButton extends Component {
     // Checking if pokemon colors array contain the input value
     let isThereColor = colorNames.indexOf(searchVal);
     if (isThereColor !== -1) {
-      this.props.ifThereIsAColor();
+      this.props.noPokemon();
       axios
         .get(`https://pokeapi.co/api/v2/pokemon-color/${searchVal}/`)
         .then(response => {
@@ -126,17 +112,36 @@ class InputAndButton extends Component {
     this.props.unsort();
   };
 
+  pokemonHandler = async () => {
+    for (let pok of this.props.pokemonColor) {
+      await axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${pok}/`)
+        .then(res => {
+          this.setState(prevState => ({
+            pokemon: [
+              ...prevState.pokemon,
+              {
+                name: res.data.name,
+                img: res.data.sprites.front_shiny
+              }
+            ]
+          }));
+          this.props.newPokemon(this.state.pokemon);
+          this.props.loadingOrNo(true);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    this.props.loadingOrNo(false);
+    this.props.ifThereIsAColor();
+  };
   render() {
     return (
       <div className={classes.App}>
-        <h2
-          style={{
-            color: "white"
-          }}
-        >
-          Search pokemons by name or color
-        </h2>
+        <h1 className={classes.headText}>Search pokemons by name or color</h1>
         <input
+          onKeyPress={this.handleKeyPress}
           className={classes.Input}
           type="text"
           onChange={this.onChangeHandler}
@@ -154,7 +159,8 @@ const mapStateToProps = state => {
     inputValue: state.inputVal,
     pokemonNames: state.pokemons,
     pokemonColors: state.pokColorNames,
-    pokemonColor: state.pokemonColor
+    pokemonColor: state.pokemonColor,
+    loading: state.loading
   };
 };
 
@@ -187,7 +193,9 @@ const mapDispatchToProps = dispatch => {
     ifThereIsNoName: () => dispatch(ifThereIsNoName()),
     ifThereIsAColor: () => dispatch(ifThereIsAColor()),
     ifThereIsNoColor: () => dispatch(ifThereIsNoColor()),
-    unsort: () => dispatch(unsort())
+    unsort: () => dispatch(unsort()),
+    loadingOrNo: val => dispatch(loadingOrNo(val)),
+    noPokemon: () => dispatch(noPokemon())
   };
 };
 

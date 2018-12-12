@@ -15,7 +15,8 @@ const initialState = {
   newPokemon: [],
   colorSearch: false,
   correctColor: false,
-  sort: false
+  sort: false,
+  loading: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -89,7 +90,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sort: false,
-        newPokemon: []
+        newPokemon: [],
+        colorSearch: false
+      };
+    case actionTypes.LOADING_OR_NO:
+      return {
+        ...state,
+        loading: action.val
+      };
+    case actionTypes.NO_POKEMON:
+      return {
+        ...state,
+        correctColor: true
       };
     default:
       break;

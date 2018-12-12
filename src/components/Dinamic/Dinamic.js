@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { sortButton } from "../../store/actions";
 import classes from "./Dinamic.css";
 import PokemonInfo from "../PokemonInfo/PokemonInfo";
+import Spinner from "../Spinner/Spinner";
 
 class Dinamic extends Component {
   sortButtonHandler = () => {
@@ -12,8 +13,10 @@ class Dinamic extends Component {
     let pokemon = null;
     let foundPokemons = null;
     let pokemonsByColor = null;
+    let findOutMore = null;
+    let recSearches = null;
 
-    if (this.props.pokemonColor !== "") {
+    if (this.props.loading !== true) {
       // Checking if sort button is pressed
       if (this.props.sort) {
         let sorted = this.props.newPokemon.sort((a, b) =>
@@ -23,8 +26,8 @@ class Dinamic extends Component {
           return (
             <div className={classes.FoundPokemons} key={Math.random() * 100}>
               <div className={classes.pokNameImg}>
-                <img src={pok.img} alt="" height="130px" />
-                <p>{pok.name}</p>
+                <img src={pok.img} alt="" height="130px" width="130px" />
+                <p className={classes.pokByColText}>{pok.name}</p>
               </div>
             </div>
           );
@@ -35,24 +38,38 @@ class Dinamic extends Component {
             <div className={classes.FoundPokemons} key={Math.random() * 100}>
               <div className={classes.pokNameImg}>
                 <img src={pok.img} alt="" height="130px" />
-                <p>{pok.name}</p>
+                <p className={classes.pokByColText}>{pok.name}</p>
               </div>
             </div>
           );
         });
       }
+    } else {
+      pokemonsByColor = <Spinner />;
     }
 
-    foundPokemons = this.props.pokList.map(pok => {
-      return (
-        <div className={classes.FoundPokemons} key={Math.random() * 100}>
-          <div>
-            <h5>{pok}</h5>
-          </div>
-        </div>
-      );
-    });
+    if (this.props.pokRender === false && !this.props.correctColor) {
+      pokemonsByColor = null;
+    }
 
+    if (this.props.pokRender || this.props.newPokemon.length !== 0) {
+      foundPokemons = this.props.pokList.map(pok => {
+        return (
+          <div className={classes.FoundPokemons} key={Math.random() * 100}>
+            <div>
+              <h5>{pok}</h5>
+            </div>
+          </div>
+        );
+      });
+    }
+
+    if (
+      (this.props.pokRender === false && !this.props.correctColor) ||
+      this.props.loading
+    ) {
+      foundPokemons = null;
+    }
     if (this.props.pokRender) {
       pokemon = (
         <PokemonInfo
@@ -64,41 +81,59 @@ class Dinamic extends Component {
         />
       );
     }
+
     if (this.props.pokRender === false && !this.props.correctColor) {
       pokemon = (
-        <div className={classes.PokemonInfo}>
-          <p style={{ color: "red" }}>
-            There is no pokemon with that name or color
-          </p>
+        <div className={classes.warning}>
+          <div className={classes.NoPokemon}>
+            <p className={classes.NoPokemonTxt}>
+              Sorry... No pokemon with that name or color :(
+            </p>
+          </div>
         </div>
       );
     }
+
+    if (this.props.colorSearch && this.props.loading === false) {
+      findOutMore = (
+        <div className={classes.findOutandSort}>
+          <p className={classes.foundText}>
+            Type some of these names into the search bar to find out more!!!
+          </p>
+          <button
+            className={classes.sortButton}
+            onClick={this.sortButtonHandler}
+          >
+            Sort pokemons alphabetically
+          </button>
+        </div>
+      );
+    }
+    if (
+      this.props.pokRender === false &&
+      !this.props.correctColor &&
+      this.props.colorSearch &&
+      this.props.loading !== true
+    ) {
+      findOutMore = null;
+    }
+    if (this.props.pokList.length > 0) {
+      recSearches = <h2 className={classes.recSearches}>Recent Searches</h2>;
+    }
+    if (
+      this.props.loading ||
+      (this.props.pokRender === false && !this.props.correctColor) ||
+      (this.props.newPokemon.length === 0 && !this.props.pokRender)
+    ) {
+      recSearches = null;
+    }
+
     return (
       <div>
         <div style={{ textAlign: "center" }}> {pokemon}</div>
-        <div style={{ textAlign: "center" }}>
-          {" "}
-          {this.props.colorSearch ? (
-            <div>
-              <h2 className={classes.foundText}>
-                Type some of these names into the search bar to find out more!!!
-              </h2>
-              <button
-                className={classes.sortButton}
-                onClick={this.sortButtonHandler}
-              >
-                Sort pokemons alphabetically
-              </button>
-            </div>
-          ) : null}
-        </div>
+        <div style={{ textAlign: "center" }}> {findOutMore}</div>
         <div style={{ textAlign: "center" }}> {pokemonsByColor}</div>
-        <div style={{ textAlign: "center" }}>
-          {" "}
-          {this.props.pokList.length > 0 ? (
-            <h2 style={{ color: "white" }}>Recent Searches</h2>
-          ) : null}
-        </div>
+        <div style={{ textAlign: "center" }}> {recSearches}</div>
         <div style={{ textAlign: "center" }}> {foundPokemons}</div>
       </div>
     );
@@ -118,7 +153,8 @@ const mapStateToProps = state => {
     pokemonColor: state.pokemonColor,
     colorSearch: state.colorSearch,
     correctColor: state.correctColor,
-    sort: state.sort
+    sort: state.sort,
+    loading: state.loading
   };
 };
 
