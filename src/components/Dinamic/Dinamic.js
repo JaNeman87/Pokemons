@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
-import { sortButton } from "../../store/actions";
+import {
+  sortButton,
+  singlePokInfo,
+  ifThereIsNoName,
+  ifThereIsAName
+} from "../../store/actions";
 import classes from "./Dinamic.css";
 import PokemonInfo from "../PokemonInfo/PokemonInfo";
 import Spinner from "../Spinner/Spinner";
@@ -9,6 +15,46 @@ class Dinamic extends Component {
   sortButtonHandler = () => {
     this.props.sortButton();
   };
+
+  onPokemonClick(event) {
+    console.log(event.target.textContent);
+    const pokemon = event.target.textContent;
+    if (pokemon !== "") {
+      this.props.ifThereIsAName();
+      axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
+        .then(response => {
+          let abilities = [];
+          let ability = [];
+
+          for (let key in response.data.abilities) {
+            abilities.push({
+              ...response.data.abilities[key]
+            });
+          }
+          for (let key in abilities) {
+            ability.push({
+              ...abilities[key].ability
+            });
+          }
+
+          const abilitiesArr = ability.map(abi => abi.name);
+          this.props.singlePokInfo(
+            response.data.weight,
+            response.data.height,
+            abilitiesArr,
+            response.data.name,
+            response.data.name,
+            response.data.sprites.front_shiny
+          );
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      this.props.ifThereIsNoName();
+    }
+  }
   render() {
     let pokemon = null;
     let foundPokemons = null;
@@ -27,7 +73,12 @@ class Dinamic extends Component {
             <div className={classes.FoundPokemons} key={Math.random() * 100}>
               <div className={classes.pokNameImg}>
                 <img src={pok.img} alt="" height="130px" width="130px" />
-                <p className={classes.pokByColText}>{pok.name}</p>
+                <p
+                  onClick={event => this.onPokemonClick(event)}
+                  className={classes.pokByColText}
+                >
+                  {pok.name}
+                </p>
               </div>
             </div>
           );
@@ -38,7 +89,12 @@ class Dinamic extends Component {
             <div className={classes.FoundPokemons} key={Math.random() * 100}>
               <div className={classes.pokNameImg}>
                 <img src={pok.img} alt="" height="130px" />
-                <p className={classes.pokByColText}>{pok.name}</p>
+                <p
+                  onClick={event => this.onPokemonClick(event)}
+                  className={classes.pokByColText}
+                >
+                  {pok.name}
+                </p>
               </div>
             </div>
           );
@@ -98,7 +154,7 @@ class Dinamic extends Component {
       findOutMore = (
         <div className={classes.findOutandSort}>
           <p className={classes.foundText}>
-            Type some of these names into the search bar to find out more!!!
+            Click on the pokemon name to find out more!!!
           </p>
           <button
             className={classes.sortButton}
@@ -160,7 +216,27 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sortButton: () => dispatch(sortButton())
+    sortButton: () => dispatch(sortButton()),
+    singlePokInfo: (
+      pokWeight,
+      pokHeight,
+      pokAbilities,
+      singlePokName,
+      pokList,
+      pokImg
+    ) =>
+      dispatch(
+        singlePokInfo(
+          pokWeight,
+          pokHeight,
+          pokAbilities,
+          singlePokName,
+          pokList,
+          pokImg
+        )
+      ),
+    ifThereIsAName: () => dispatch(ifThereIsAName()),
+    ifThereIsNoName: () => dispatch(ifThereIsNoName())
   };
 };
 

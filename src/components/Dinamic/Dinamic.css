@@ -114,7 +114,8 @@
   .pokByColText{
     font-family: 'Gamja Flower', cursive;
     font-size: 25px;
-    color: white
+    color: white;
+    cursor: pointer;
   }
   .recSearches{
     color: white;

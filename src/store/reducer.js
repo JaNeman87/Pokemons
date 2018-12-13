@@ -103,6 +103,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         correctColor: true
       };
+
     default:
       break;
   }
